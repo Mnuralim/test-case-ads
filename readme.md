@@ -21,7 +21,7 @@ example : http://localhost:${PORT}/api/v1/auths
 Clone the project
 
 ```bash
-  git clone https://github.com/Irfiyandaabidin/Binar-CH7-Testing.git my-project
+  https://github.com/Mnuralim/test-case-ads.git
 ```
 
 Go to the project directory
