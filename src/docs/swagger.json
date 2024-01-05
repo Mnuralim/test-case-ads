@@ -1,0 +1,1745 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "simple-online-shop-api",
+    "description": "This is coding test from ADS digital partner",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "AUTHS",
+      "description": "This API for AUTHS resources"
+    },
+    {
+      "name": "PRODUCTS",
+      "description": "This API for PRODUCT resources"
+    },
+    {
+      "name": "CARTS",
+      "description": "This API for CARTS resources"
+    },
+    {
+      "name": "ORDERS",
+      "description": "This API for ORDERS resources"
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://localhost:5000/api/v1"
+    }
+  ],
+  "paths": {
+    "/auths/customer-login": {
+      "post": {
+        "tags": ["AUTHS"],
+        "summary": "Return login api hit results for customer",
+        "description": "this API for customer",
+        "requestBody": {
+          "description": "It's the Request Body for a Successful Login",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "andi12"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "123456"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "login success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "username": {
+                          "type": "string",
+                          "example": "andi12"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "andi@gmail.com"
+                        },
+                        "role": {
+                          "type": "string",
+                          "example": "customer"
+                        },
+                        "accessTokem": {
+                          "type": "string",
+                          "example": "GWHUHGUAWHGUAHGIAWBGVIAHWBVIAW"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Login failed 'wrong password'",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "password is incorrect"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Login failed 'customer not found'",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "customer not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auths/customer-register": {
+      "post": {
+        "tags": ["AUTHS"],
+        "summary": "Return register api hit results for customer",
+        "description": "this API for register customer",
+        "requestBody": {
+          "description": "It's the Request Body for a Successful member customer",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "bagas@mail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "123456"
+                  },
+                  "mobile": {
+                    "type": "string",
+                    "example": "087263635"
+                  },
+                  "username": {
+                    "type": "string",
+                    "example": "bagas12"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Bagas koro"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful register",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "customer account created"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400=>1": {
+            "description": "register failed , email already exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "email already exist"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400=>2": {
+            "description": "register failed , username already exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "username already exist"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400=>3": {
+            "description": "register failed , all fields are required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "all fields are required"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400=>4": {
+            "description": "register failed , password must be more than 6 characters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "password must be more than 6 characters"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auths/seller-register": {
+      "patch": {
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "tags": ["AUTHS"],
+        "summary": "Return register api hit results for seller",
+        "description": "this API for register seller",
+        "responses": {
+          "201": {
+            "description": "Successful register",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "seller account created"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "register failed , This account has become a seller",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "This account has become a seller"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "register failed , Unauthorized, Login please!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized, Login please!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auths/seller-login": {
+      "post": {
+        "tags": ["AUTHS"],
+        "summary": "Return login api hit results for seller",
+        "description": "this API for seller",
+        "requestBody": {
+          "description": "It's the Request Body for a Successful Login",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "seller_magang12"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "123456"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "login success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "username": {
+                          "type": "string",
+                          "example": "seller_magang12"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "seller_magang@gmail.com"
+                        },
+                        "role": {
+                          "type": "string",
+                          "example": "seller"
+                        },
+                        "accessTokem": {
+                          "type": "string",
+                          "example": "GWHUHGUAWHGUAHGIAWBGVIAHWBVIAW"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Login failed 'wrong password'",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "password is incorrect"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Login failed 'seller not found'",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "seller not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products": {
+      "post": {
+        "tags": ["PRODUCTS"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return the results of create product API",
+        "description": "this is the API for creating product",
+        "requestBody": {
+          "description": "There's a Request Body for created product",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Samsung J1"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "This is samsung j1"
+                  },
+                  "price": {
+                    "type": "integer",
+                    "example": 100
+                  },
+                  "stock": {
+                    "type": "integer",
+                    "example": 20
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully create product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "product created"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "create product failed , all fields are required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "all fields are required"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "create product failed , Unauthorized, Login please!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized, Login please!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "create product failed , acccess forbidden, your role is not seller",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "acccess forbidden, your role is not seller"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["PRODUCTS"],
+        "summary": "Return the results of get products API",
+        "description": "this is the API for show all products",
+        "parameters": [
+          {
+            "sellerUsername": "name",
+            "in": "query",
+            "description": "Filter products by seller username",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Successfully show all products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "example": 1
+                          },
+                          "title": {
+                            "type": "string",
+                            "example": "Xiaomi 12"
+                          },
+                          "type": {
+                            "description": "string",
+                            "example": "This is xiaomi 12"
+                          },
+                          "price": {
+                            "type": "integer",
+                            "example": 200
+                          },
+                          "stock": {
+                            "type": "integer",
+                            "example": 20
+                          },
+                          "createdAt": {
+                            "type": "date",
+                            "example": "2022-10-25T08:55:06.000Z"
+                          },
+                          "updatedAt": {
+                            "type": "date",
+                            "example": "2022-10-25T08:55:06.000Z"
+                          },
+                          "seller": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "example": 1
+                              },
+                              "username": {
+                                "type": "string",
+                                "example": "seller_magang12"
+                              },
+                              "role": {
+                                "type": "string",
+                                "example": "seller"
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "seller magang"
+                              },
+                              "email": {
+                                "type": "string",
+                                "example": "seller_magang@gmail.com"
+                              },
+                              "mobile": {
+                                "type": "string",
+                                "example": "081234567890"
+                              },
+                              "createdAt": {
+                                "type": "date",
+                                "example": "2022-10-25T08:55:06.000Z"
+                              },
+                              "updatedAt": {
+                                "type": "date",
+                                "example": "2022-10-25T08:55:06.000Z"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/carts": {
+      "post": {
+        "tags": ["CARTS"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return the results of add  to cart API",
+        "description": "this is the API for add product to cart",
+        "requestBody": {
+          "description": "It's the Request Body for a Successful add product to cart",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "productId": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "quantity": {
+                    "type": "integer",
+                    "example": 2
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200=>1": {
+            "description": "Successful add product to cart",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Success add product to cart"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200=>2": {
+            "description": "Successful add product to cart ,if before already add this product to cart, then the total quantity in cart will increase",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Product quantity updated in cart"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "register failed , Unauthorized, Login please!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized, Login please!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "failed add product to cart 'Product out of stock'",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Product out of stock"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "failed add product to cart 'Product not found'",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Product not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["CARTS"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return the results of get user cart API",
+        "description": "this is the API for show  product that current user login add to cart",
+        "responses": {
+          "200": {
+            "description": "Successful get user cart",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Success get user cart"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "example": 1
+                          },
+                          "quantity": {
+                            "type": "integer",
+                            "example": 2
+                          },
+                          "customer_id": {
+                            "type": "integer",
+                            "example": 2
+                          },
+                          "product_id": {
+                            "type": "integer",
+                            "example": 2
+                          },
+                          "createdAt": {
+                            "type": "date",
+                            "example": "2022-10-25T08:55:06.000Z"
+                          },
+                          "updatedAt": {
+                            "type": "date",
+                            "example": "2022-10-25T08:55:06.000Z"
+                          },
+                          "product": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "example": 1
+                              },
+                              "title": {
+                                "type": "string",
+                                "example": "Xiaomi 12"
+                              },
+                              "seller_id": {
+                                "type": "integer",
+                                "example": 2
+                              },
+                              "stock": {
+                                "type": "integer",
+                                "example": 2
+                              },
+                              "price": {
+                                "type": "integer",
+                                "example": 200
+                              },
+                              "description": {
+                                "type": "string",
+                                "example": "This is xiaomi 12"
+                              },
+                              "createdAt": {
+                                "type": "date",
+                                "example": "2022-10-25T08:55:06.000Z"
+                              },
+                              "updatedAt": {
+                                "type": "date",
+                                "example": "2022-10-25T08:55:06.000Z"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "failed get user cart data , Unauthorized, Login please!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized, Login please!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["CARTS"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return the results of API empty user cart API",
+        "description": "this is the API for empty current user login cart",
+        "responses": {
+          "200": {
+            "description": "Successful empty cart",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Success empty cart"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "failed get user cart data , Unauthorized, Login please!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized, Login please!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders": {
+      "post": {
+        "tags": ["ORDERS"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return the results of create or checkout product from cart API",
+        "description": "this is the API for checkout or order product",
+        "responses": {
+          "200": {
+            "description": "Success create order",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Success create order"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "register failed , Unauthorized, Login please!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized, Login please!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "failed checkout or create order 'Cart is empty'",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Cart is empty"
+                    }
+                  }
+                }
+              }
+            }
+          },
+
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["ORDERS"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return the results of get user orders API",
+        "description": "this is the API for show  current user order",
+        "responses": {
+          "200": {
+            "description": "Success get user orders",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Success get user orders"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "example": 1
+                          },
+                          "total_price": {
+                            "type": "integer",
+                            "example": 200
+                          },
+                          "createdAt": {
+                            "type": "date",
+                            "example": "2022-10-25T08:55:06.000Z"
+                          },
+                          "updatedAt": {
+                            "type": "date",
+                            "example": "2022-10-25T08:55:06.000Z"
+                          },
+                          "Details": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer",
+                                  "example": 1
+                                },
+                                "quantity": {
+                                  "type": "integer",
+                                  "example": 5
+                                },
+                                "unit_price": {
+                                  "type": "integer",
+                                  "example": 200
+                                },
+                                "createdAt": {
+                                  "type": "date",
+                                  "example": "2022-10-25T08:55:06.000Z"
+                                },
+                                "updatedAt": {
+                                  "type": "date",
+                                  "example": "2022-10-25T08:55:06.000Z"
+                                },
+                                "product": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "integer",
+                                      "example": 1
+                                    },
+                                    "title": {
+                                      "type": "string",
+                                      "example": "Xiaomi 12"
+                                    },
+                                    "seller_id": {
+                                      "type": "integer",
+                                      "example": 2
+                                    },
+                                    "stock": {
+                                      "type": "integer",
+                                      "example": 2
+                                    },
+                                    "price": {
+                                      "type": "integer",
+                                      "example": 200
+                                    },
+                                    "description": {
+                                      "type": "string",
+                                      "example": "This is xiaomi 12"
+                                    },
+                                    "createdAt": {
+                                      "type": "date",
+                                      "example": "2022-10-25T08:55:06.000Z"
+                                    },
+                                    "updatedAt": {
+                                      "type": "date",
+                                      "example": "2022-10-25T08:55:06.000Z"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "failed get user cart data , Unauthorized, Login please!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized, Login please!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/seller": {
+      "get": {
+        "tags": ["ORDERS"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "displays the data of the product from seller that have been ordered",
+        "description": "displays the data of the product from seller that have been ordered, only seller can see this API",
+        "responses": {
+          "200": {
+            "description": "Success get seller product ordered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Success get user orders"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "example": 1
+                          },
+                          "quantity": {
+                            "type": "integer",
+                            "example": 2
+                          },
+                          "createdAt": {
+                            "type": "date",
+                            "example": "2022-10-25T08:55:06.000Z"
+                          },
+                          "updatedAt": {
+                            "type": "date",
+                            "example": "2022-10-25T08:55:06.000Z"
+                          },
+                          "product": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "example": 1
+                              },
+                              "title": {
+                                "type": "string",
+                                "example": "Xiaomi 12"
+                              },
+                              "seller_id": {
+                                "type": "integer",
+                                "example": 2
+                              },
+                              "stock": {
+                                "type": "integer",
+                                "example": 2
+                              },
+                              "price": {
+                                "type": "integer",
+                                "example": 200
+                              },
+                              "description": {
+                                "type": "string",
+                                "example": "This is xiaomi 12"
+                              },
+                              "createdAt": {
+                                "type": "date",
+                                "example": "2022-10-25T08:55:06.000Z"
+                              },
+                              "updatedAt": {
+                                "type": "date",
+                                "example": "2022-10-25T08:55:06.000Z"
+                              }
+                            }
+                          },
+                          "order_detail": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "example": 1
+                              },
+                              "status": {
+                                "type": "string",
+                                "example": "process"
+                              },
+                              "createdAt": {
+                                "type": "date",
+                                "example": "2022-10-25T08:55:06.000Z"
+                              },
+                              "updatedAt": {
+                                "type": "date",
+                                "example": "2022-10-25T08:55:06.000Z"
+                              },
+                              "customer": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "integer",
+                                    "example": 2
+                                  },
+                                  "name": {
+                                    "type": "string",
+                                    "example": "seller magang"
+                                  },
+                                  "username": {
+                                    "type": "string",
+                                    "example": "seller_magang12"
+                                  },
+                                  "email": {
+                                    "type": "string",
+                                    "example": "seller_magang@gmail.com"
+                                  },
+                                  "mobile": {
+                                    "type": "string",
+                                    "example": "081234567890"
+                                  },
+                                  "role": {
+                                    "type": "string",
+                                    "example": "seller"
+                                  },
+                                  "createdAt": {
+                                    "type": "date",
+                                    "example": "2022-10-25T08:55:06.000Z"
+                                  },
+                                  "updatedAt": {
+                                    "type": "date",
+                                    "example": "2022-10-25T08:55:06.000Z"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "failed get user cart data , Unauthorized, Login please!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized, Login please!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "failed , acccess forbidden, your role is not seller",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "acccess forbidden, your role is not seller"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerToken": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
